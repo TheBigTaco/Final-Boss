@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FinalBoss.Models;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,8 +37,24 @@ namespace FinalBoss.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Boss boss)
+        public IActionResult Create(Boss boss, IFormFile image)
         {
+            byte[] newImage = new byte[0];
+            if(image != null) 
+            {
+                using (Stream fileStream = image.OpenReadStream())
+                using (MemoryStream ms = new MemoryStream())
+                { 
+                    fileStream.CopyTo(ms);
+                    newImage = ms.ToArray();
+                }
+                boss.Picture = newImage;
+            }
+            else
+            {
+                Console.WriteLine("No Image");    
+            }
+
             bossRepo.Save(boss);
 
             return RedirectToAction("Index");
@@ -76,5 +94,11 @@ namespace FinalBoss.Controllers
 										 // Removed db.SaveChanges() call
 			return RedirectToAction("Index");
 		}
+
+        public IActionResult GetPicture(int id)
+        {
+            var thisPicture = bossRepo.Bosses.FirstOrDefault(x => x.BossId == id).Picture;
+            return File(thisPicture, "image/png");
+        }
     }
 }

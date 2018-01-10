@@ -14,6 +14,7 @@ namespace FinalBoss.Models
         public string Sex { get; set; }
         public string Location { get; set; }
         public bool ImmediateThreat { get; set; }
+        public byte[] Picture { get; set; }
         public int HeroId { get; set; }
         public virtual Hero Hero { get; set; }
 

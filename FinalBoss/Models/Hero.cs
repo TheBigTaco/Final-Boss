@@ -11,6 +11,7 @@ namespace FinalBoss.Models
         public int HeroId { get; set; }
         public string Name { get; set; }
         public string Weapon { get; set; }
+        public byte[] Picture { get; set; }
         public virtual ICollection<Boss> Bosses { get; set; }
 
 		public override bool Equals(System.Object otherHero)

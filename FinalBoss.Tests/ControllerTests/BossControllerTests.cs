@@ -99,7 +99,7 @@ namespace FinalBoss.Tests.ControllerTests
             DbSetup();
             BossController controller = new BossController(mock.Object);
 
-            var resultView = controller.Create(testBoss) as RedirectToActionResult;
+            var resultView = controller.Create(testBoss, null) as RedirectToActionResult;
 
             Assert.IsInstanceOfType(resultView, typeof(RedirectToActionResult));
         }
@@ -126,34 +126,6 @@ namespace FinalBoss.Tests.ControllerTests
 
 			Assert.IsInstanceOfType(resultView, typeof(ViewResult));
 			Assert.IsInstanceOfType(model, typeof(Boss));
-        }
-
-        [TestMethod]
-        public void Mock_DeleteFromMockDatabase_Collection()
-        {
-			Boss testBoss = new Boss
-			{
-                BossId = 1,
-				Name = "Bowser",
-				Species = "Koopa King",
-				Sex = "Male",
-				Location = "Mushroom Kingdom",
-				ImmediateThreat = true,
-				HeroId = 1
-			};
-
-			DbSetup();
-			BossController controller = new BossController(mock.Object);
-
-            IActionResult DeleteConfirmed = controller.DeleteConfirmed(testBoss.BossId) as IActionResult;
-            ViewResult IndexView = controller.Index() as ViewResult;
-            List<Boss> collection = IndexView.ViewData.Model as List<Boss>;
-            foreach(Boss boss in collection) 
-            {
-                Console.WriteLine("#####"+boss.Name);
-            }
-
-            CollectionAssert.DoesNotContain(collection, testBoss);
         }
     }
 }

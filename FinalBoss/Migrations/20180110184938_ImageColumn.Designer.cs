@@ -8,9 +8,10 @@ using FinalBoss.Models;
 namespace FinalBoss.Migrations
 {
     [DbContext(typeof(FinalBossContext))]
-    partial class FinalBossContextModelSnapshot : ModelSnapshot
+    [Migration("20180110184938_ImageColumn")]
+    partial class ImageColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
