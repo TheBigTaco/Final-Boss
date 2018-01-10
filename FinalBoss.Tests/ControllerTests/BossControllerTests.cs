@@ -153,6 +153,61 @@ namespace FinalBoss.Tests.ControllerTests
 			Assert.IsInstanceOfType(model, typeof(Boss));
         }
 
+        [TestMethod]
+        public void DB_DeleteSpecificEntries_Collection()
+		{
+			BossController controller = new BossController(db);
+			Boss testBoss1 = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+			Boss testBoss2 = new Boss
+			{
+				Name = "Madame Broode",
+				Species = "Rabbit",
+				Sex = "Female",
+				Location = "Cascade Kingdom",
+				ImmediateThreat = false,
+				HeroId = 1
+			};
 
+			controller.Create(testBoss1, null);
+            controller.Create(testBoss2, null);
+            var collection = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+            controller.DeleteConfirmed(collection[0].BossId);
+			var collection2 = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+
+            CollectionAssert.DoesNotContain(collection2, testBoss1);
+		}
+
+		[TestMethod]
+		public void DB_EditSpecificEntries_Collection()
+		{
+			BossController controller = new BossController(db);
+			Boss testBoss1 = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+
+			controller.Create(testBoss1, null);
+
+			var collection = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+            Boss bossToEdit = (controller.Edit(collection[0].BossId) as ViewResult).ViewData.Model as Boss;
+            bossToEdit.Name = "New Bowser";
+            controller.Edit(bossToEdit);
+			var collection2 = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+
+            Assert.AreEqual("New Bowser", collection2[0].Name);
+		}
     }
 }
