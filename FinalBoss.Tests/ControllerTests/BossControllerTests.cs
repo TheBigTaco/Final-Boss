@@ -10,9 +10,14 @@ using Moq;
 namespace FinalBoss.Tests.ControllerTests
 {
     [TestClass]
-    public class BossControllerTests
+    public class BossControllerTests : IDisposable
     {
         Mock<IBossRepository> mock = new Mock<IBossRepository>();
+        EFBossRepository db = new EFBossRepository(new TestDbContext());
+        public void Dispose()
+        {
+            db.DeleteAll();
+        }
         private void DbSetup()
         {
             mock.Setup(e => e.Bosses).Returns(new Boss[]
@@ -105,6 +110,26 @@ namespace FinalBoss.Tests.ControllerTests
         }
 
         [TestMethod]
+        public void DB_CreatesNewEntries_Collection()
+        {
+            BossController controller = new BossController(db); 
+			Boss testBoss = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+
+            controller.Create(testBoss, null);
+            var collection = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+
+            CollectionAssert.Contains(collection, testBoss);
+        }
+
+        [TestMethod]
         public void Mock_GetDetails_ReturnsView()
         {
 			Boss testBoss = new Boss
@@ -127,5 +152,7 @@ namespace FinalBoss.Tests.ControllerTests
 			Assert.IsInstanceOfType(resultView, typeof(ViewResult));
 			Assert.IsInstanceOfType(model, typeof(Boss));
         }
+
+
     }
 }

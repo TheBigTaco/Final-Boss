@@ -8,8 +8,15 @@ namespace FinalBoss.Models
 {
     public class EFBossRepository : IBossRepository
     {
-        FinalBossContext db = new FinalBossContext();
-
+        FinalBossContext db;
+        public EFBossRepository()
+        {
+            db = new FinalBossContext();
+        }
+        public EFBossRepository(FinalBossContext thisDb)
+        {
+            db = thisDb;
+        }
         public IQueryable<Boss> Bosses
         { get { return db.Bosses; } }
 
@@ -31,6 +38,11 @@ namespace FinalBoss.Models
         {
             db.Bosses.Remove(boss);
             db.SaveChanges();
+        }
+
+        public void DeleteAll()
+        {
+            db.Database.ExecuteSqlCommand("delete from bosses");
         }
     }
 }
