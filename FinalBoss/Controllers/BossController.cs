@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using FinalBoss.Models;
 using System.IO;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FinalBoss.Controllers
 {
     public class BossController : Controller

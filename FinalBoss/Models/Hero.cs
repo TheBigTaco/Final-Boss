@@ -14,6 +14,7 @@ namespace FinalBoss.Models
         public byte[] Picture { get; set; }
         public virtual ICollection<Boss> Bosses { get; set; }
 
+        // this only checks the id. previous c# projects also compare the other properties.
 		public override bool Equals(System.Object otherHero)
 		{
 			if (!(otherHero is Hero))

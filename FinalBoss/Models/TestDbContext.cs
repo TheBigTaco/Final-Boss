@@ -6,6 +6,7 @@ namespace FinalBoss.Models
     public class TestDbContext : FinalBossContext
 	{
 		public override DbSet<Boss> Bosses { get; set; }
+        public override DbSet<Hero> Heroes { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 			=> optionsBuilder

@@ -26,5 +26,23 @@ namespace FinalBoss.Tests.ModelTests
             Assert.AreEqual(true, boss.ImmediateThreat);
             Assert.AreEqual(1, boss.HeroId);
         }
+
+		[TestMethod]
+		public void Equals_BossesAreTheSame_True()
+		{
+			Boss boss = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+
+			Boss bossCopy = boss;
+
+			Assert.AreEqual(bossCopy, boss);
+		}
     }
 }
