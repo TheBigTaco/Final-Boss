@@ -41,9 +41,10 @@ namespace FinalBoss.Models
             db.SaveChanges();
         }
 
+        // for some reason "!=" did not work.
 		public void DeleteAll()
 		{
-			db.Database.ExecuteSqlCommand("delete from heroes where HeroId != 1");
+			db.Database.ExecuteSqlCommand("delete from heroes where HeroId <> 1");
 		}
         
     }

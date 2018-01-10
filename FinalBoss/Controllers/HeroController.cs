@@ -58,11 +58,37 @@ namespace FinalBoss.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Edit(int id)
+        {
+            Hero thisHero = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id);
+            return View(thisHero);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Hero hero)
+        {
+            heroRepo.Edit(hero);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Details(int id)
         {
             Hero thisHero = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id);
             return View(thisHero);
         }
 
+        public ActionResult Delete(int id)
+        {
+            Hero thisHero = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id);
+            return View(thisHero);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            Hero thisHero = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id);
+            heroRepo.Remove(thisHero);
+            return RedirectToAction("Index");
+        }
     }
 }

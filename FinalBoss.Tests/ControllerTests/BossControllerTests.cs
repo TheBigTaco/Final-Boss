@@ -186,7 +186,7 @@ namespace FinalBoss.Tests.ControllerTests
 		}
 
 		[TestMethod]
-		public void DB_EditSpecificEntries_Collection()
+		public void DB_EditSpecificEntries_Boss()
 		{
 			BossController controller = new BossController(db);
 			Boss testBoss1 = new Boss
