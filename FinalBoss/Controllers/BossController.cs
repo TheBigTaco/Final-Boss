@@ -33,7 +33,7 @@ namespace FinalBoss.Controllers
         public IActionResult Index(bool threat)
         {
             
-            return View(bossRepo.Bosses.Where(t => t.ImmediateThreat == threat));
+            return View(bossRepo.Bosses.Where(t => t.ImmediateThreat == threat).ToList());
         }
 
         public ViewResult Create()
@@ -99,6 +99,16 @@ namespace FinalBoss.Controllers
 										 // Removed db.SaveChanges() call
 			return RedirectToAction("Index");
 		}
+
+        // Toggles immediate threat level.
+        [HttpPost]
+        public IActionResult ToggleThreat(int id)
+        {
+            Boss thisBoss = bossRepo.Bosses.FirstOrDefault(x => x.BossId == id);
+            thisBoss.ImmediateThreat = !thisBoss.ImmediateThreat;
+            bossRepo.Edit(thisBoss);
+            return RedirectToAction("Index"); 
+        }
 
         public IActionResult GetPicture(int id)
         {

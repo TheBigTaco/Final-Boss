@@ -209,5 +209,38 @@ namespace FinalBoss.Tests.ControllerTests
 
             Assert.AreEqual("New Bowser", collection2[0].Name);
 		}
+
+        [TestMethod]
+        public void DB_FilterEntriesByThreat_Collection()
+        {
+            BossController controller = new BossController(db);
+
+			Boss testBoss1 = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+			Boss testBoss2 = new Boss
+			{
+				Name = "Madame Broode",
+				Species = "Rabbit",
+				Sex = "Female",
+				Location = "Cascade Kingdom",
+				ImmediateThreat = false,
+				HeroId = 1
+			};
+
+            var isThreat = new List<Boss> { testBoss1 };
+
+			controller.Create(testBoss1, null);
+			controller.Create(testBoss2, null);
+			var collection = (controller.Index(true) as ViewResult).ViewData.Model as List<Boss>;
+            CollectionAssert.AreEqual(isThreat, collection);
+
+        }
     }
 }
