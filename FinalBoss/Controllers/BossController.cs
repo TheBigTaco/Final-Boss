@@ -29,6 +29,13 @@ namespace FinalBoss.Controllers
             return View(bossRepo.Bosses.ToList());
         }
 
+        // filter by immediate threat
+        public IActionResult Index(bool threat)
+        {
+            
+            return View(bossRepo.Bosses.Where(t => t.ImmediateThreat == threat));
+        }
+
         public ViewResult Create()
         {
             return View();
