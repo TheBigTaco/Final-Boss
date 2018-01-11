@@ -161,7 +161,7 @@ namespace FinalBoss.Tests.ControllerTests
         [TestMethod]
         public void DB_EditSpecificHero_Hero()
         {
-            HeroController controller = new HeroController();
+            HeroController controller = new HeroController(db);
             Hero testHero1 = new Hero
             {
                 Name = "Mario",

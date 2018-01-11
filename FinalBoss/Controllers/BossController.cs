@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FinalBoss.Models;
+using FinalBoss.ViewModels;
 using System.IO;
+using System.Diagnostics;
 
 namespace FinalBoss.Controllers
 {
@@ -30,7 +32,7 @@ namespace FinalBoss.Controllers
         }
 
         // filter by immediate threat
-        public IActionResult Index(bool threat)
+        public IActionResult IndexThreat(bool threat)
         {
             
             return View(bossRepo.Bosses.Where(t => t.ImmediateThreat == threat).ToList());
@@ -38,12 +40,15 @@ namespace FinalBoss.Controllers
 
         public ViewResult Create()
         {
-            return View();
+            var viewModel = new BossHeroes();
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Create(Boss boss, IFormFile image)
         {
+            Debug.WriteLine("***********************" + boss.HeroId);       
+
             byte[] newImage = new byte[0];
             if(image != null) 
             {

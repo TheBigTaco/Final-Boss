@@ -1,0 +1,43 @@
+﻿@model FinalBoss.ViewModels.BossHeroes
+
+@{    ViewData["Title"] = "Boss List";
+    Layout = "_Layout";
+}
+
+<h2>Add dis boss</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    <p>
+        @Html.LabelFor(model => model.Boss.Name)
+        @Html.TextBoxFor(model => model.Boss.Name)
+   </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.Species)
+        @Html.TextBoxFor(model => model.Boss.Species)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.Sex)
+        @Html.TextBoxFor(model => model.Boss.Sex)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.Location)
+        @Html.TextBoxFor(model => model.Boss.Location)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.ImmediateThreat)
+        @Html.TextBoxFor(model => model.Boss.ImmediateThreat)
+    </p>
+
+    @Html.LabelFor(model => model.Heroes)
+    @Html.DropDownListFor(model => model.Boss.HeroId, Model.Heroes)
+
+    <p>
+	    Upload Image
+	    <input type="file" id="Image" name="Image" />
+	</p>
+
+    <input type="submit" value="Enter Boss"/>
+}
+<p>
+    @Html.ActionLink("Return to boss list", "Index")
+</p>

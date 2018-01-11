@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Boss List";
+    Layout = "_Layout";
+}
+
+ima boss splash
+<p>
+	@Html.ActionLink("Add Boss", "Create")
+</p>
+
+@foreach(var boss in Model)
+{
+    <p>
+	    <strong>@boss.Name</strong> | 
+	    @Html.ActionLink("Details", "Details", new { id = @boss.BossId }) |
+	    @Html.ActionLink("Edit", "Edit", new { id = @boss.BossId }) |
+	    @Html.ActionLink("Delete", "Delete", new { id = @boss.BossId }) |
+	    @Html.ActionLink("Change Threat", "ToggleThreat", new { id = @boss.BossId })
+	    
+    </p>
+
+}
+<p>
+    @Html.ActionLink("Return to boss splash", "Index", "Home")
+</p>

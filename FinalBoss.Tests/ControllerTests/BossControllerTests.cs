@@ -238,7 +238,7 @@ namespace FinalBoss.Tests.ControllerTests
 
 			controller.Create(testBoss1, null);
 			controller.Create(testBoss2, null);
-			var collection = (controller.Index(true) as ViewResult).ViewData.Model as List<Boss>;
+            var collection = (controller.IndexThreat(true) as ViewResult).ViewData.Model as List<Boss>;
             CollectionAssert.AreEqual(isThreat, collection);
 
         }
