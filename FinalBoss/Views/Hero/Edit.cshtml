@@ -1,0 +1,32 @@
+﻿@model FinalBoss.Models.Hero
+
+@{    
+    ViewData["Title"] = "Hero Edit";
+    Layout = "_Layout";
+}
+
+<h1>Edit</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.HiddenFor(model => model.HeroId)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Weapon)
+        @Html.EditorFor(model => model.Weapon)
+    </p>
+
+    <p>
+        @Html.HiddenFor(model => model.Picture)
+    </p>
+
+    <input type="submit" value="Save Changes"/>
+}
+@Html.ActionLink("Back to Heroes List", "Index")

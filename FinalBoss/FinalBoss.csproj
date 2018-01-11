@@ -22,6 +22,7 @@
     <Folder Include="Models\Repositories\" />
     <Folder Include="Views\Boss\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\Hero\" />
   </ItemGroup>
 
 	<ItemGroup>

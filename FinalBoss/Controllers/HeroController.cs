@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FinalBoss.Models;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalBoss.Controllers
 {
@@ -24,8 +25,18 @@ namespace FinalBoss.Controllers
             }
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id = null, string name = null)
         {
+			if (id != null && name != null)
+			{
+				ViewBag.ModalId = id;
+				ViewBag.ModalName = name;
+
+			}
+			else
+			{
+				ViewBag.ModalId = null;
+			}
             return View(heroRepo.Heroes.ToList());
         }
 
@@ -73,7 +84,7 @@ namespace FinalBoss.Controllers
 
         public IActionResult Details(int id)
         {
-            Hero thisHero = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id);
+            Hero thisHero = heroRepo.Heroes.Include(hero => hero.Bosses).FirstOrDefault(x => x.HeroId == id);
             return View(thisHero);
         }
 
@@ -90,5 +101,11 @@ namespace FinalBoss.Controllers
             heroRepo.Remove(thisHero);
             return RedirectToAction("Index");
         }
+
+		public IActionResult GetPicture(int id)
+		{
+			var thisPicture = heroRepo.Heroes.FirstOrDefault(x => x.HeroId == id).Picture;
+			return File(thisPicture, "image/png");
+		}
     }
 }

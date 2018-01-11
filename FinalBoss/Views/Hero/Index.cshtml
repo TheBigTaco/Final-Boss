@@ -1,0 +1,38 @@
+﻿@using FinalBoss.Models
+
+@{
+    ViewData["Title"] = "Hero List";
+    Layout = "_Layout";
+}
+
+ima boss splash
+<p>
+    @Html.ActionLink("Add Hero", "Create")
+</p>
+
+@foreach(var hero in Model)
+{
+    <p>
+        <strong>@hero.Name</strong> | 
+        @Html.ActionLink("Details", "Details", new { id = @hero.HeroId }) | 
+        @Html.ActionLink("Edit", "Edit", new { id = @hero.HeroId }) |
+        @Html.ActionLink("Delete", "Index", new { id = @hero.HeroId, name = @hero.Name }) 
+    </p>
+
+}
+<p>
+    @Html.ActionLink("Return to boss splash", "Index", "Home")
+</p>
+
+@if (ViewBag.ModalId != null)
+{
+    <div class="modal">
+        <h1>Has @ViewBag.ModalName truly fallen?</h1>
+        @using (Html.BeginForm("Delete", "Hero", new { id = ViewBag.ModalId}))
+        {
+            <input type="submit" value="*Sob Uncontrollably*"/>
+        }
+	    @Html.ActionLink("They Live!!", "Index", new { @class = "exit-x"})
+
+    </div>
+}
