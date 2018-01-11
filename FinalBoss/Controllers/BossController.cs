@@ -78,7 +78,9 @@ namespace FinalBoss.Controllers
         public IActionResult Edit(int id)
         {
             Boss thisBoss = bossRepo.Bosses.FirstOrDefault(x => x.BossId == id);
-            return View(thisBoss);
+            var viewModel = new BossHeroes();
+            viewModel.Boss = thisBoss;
+            return View(viewModel);
         }
 
         [HttpPost]

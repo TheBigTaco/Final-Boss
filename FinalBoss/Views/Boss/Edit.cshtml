@@ -1,0 +1,40 @@
+﻿@model FinalBoss.ViewModels.BossHeroes
+
+@{    
+    ViewData["Title"] = "Boss Details";
+    Layout = "_Layout";
+}
+
+<h1>Edit</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+	    @Html.HiddenFor(model => model.Boss.BossId)
+    </p>
+
+    <p>
+	    @Html.LabelFor(model => model.Boss.Name)
+        @Html.EditorFor(model => model.Boss.Name)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Boss.Species)
+        @Html.EditorFor(model => model.Boss.Species)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.Sex)
+        @Html.EditorFor(model => model.Boss.Sex)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Boss.Location)
+        @Html.EditorFor(model => model.Boss.Location)
+    </p>
+    <p>
+	    @Html.LabelFor(model => model.Heroes)
+        @Html.DropDownListFor(model => model.Boss.HeroId, Model.Heroes)
+    </p>
+
+    <input type="submit" value="Save Changes"/>
+}
+@Html.ActionLink("Back to Bosses List", "Index")
