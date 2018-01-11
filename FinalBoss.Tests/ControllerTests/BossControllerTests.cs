@@ -242,5 +242,30 @@ namespace FinalBoss.Tests.ControllerTests
             CollectionAssert.AreEqual(isThreat, collection);
 
         }
+
+        // this a weird pointer reference or something. 
+        [TestMethod]
+        public void DB_ChangeSpecificEntryThreat()
+        {
+			BossController controller = new BossController(db);
+			Boss testBoss1 = new Boss
+			{
+				Name = "Bowser",
+				Species = "Koopa King",
+				Sex = "Male",
+				Location = "Mushroom Kingdom",
+				ImmediateThreat = true,
+				HeroId = 1
+			};
+
+			controller.Create(testBoss1, null);
+			var collection = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+            controller.ToggleThreat(collection[0].BossId);
+            var collection2 = (controller.Index() as ViewResult).ViewData.Model as List<Boss>;
+
+
+            Assert.AreNotEqual(true, collection2[0].ImmediateThreat);
+
+        }
     }
 }
