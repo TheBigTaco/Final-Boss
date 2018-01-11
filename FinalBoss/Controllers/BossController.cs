@@ -27,10 +27,21 @@ namespace FinalBoss.Controllers
             }
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id = null, string name = null)
         {
+            if (id != null && name != null)
+            {
+                ViewBag.ModalId = id;
+                ViewBag.ModalName = name;
+
+            }
+            else
+            {
+                ViewBag.ModalId = null;
+            }
             return View(bossRepo.Bosses.ToList());
         }
+
 
         // filter by immediate threat
         public IActionResult IndexThreat(bool threat)

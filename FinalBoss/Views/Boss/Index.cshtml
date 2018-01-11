@@ -1,4 +1,6 @@
-﻿@{
+﻿@using FinalBoss.Models
+
+@{
     ViewData["Title"] = "Boss List";
     Layout = "_Layout";
 }
@@ -12,10 +14,9 @@ ima boss splash
 {
     <p>
 	    <strong>@boss.Name</strong> (is threat: @boss.ImmediateThreat) | 
-	    @Html.ActionLink("Details", "Details", new { id = @boss.BossId }) |
+	    @Html.ActionLink("Details", "Details", new { id = @boss.BossId }) | 
 	    @Html.ActionLink("Edit", "Edit", new { id = @boss.BossId }) |
-	    <p class="delete-modal">Delete</p>
-	    @Html.ActionLink("Delete", "Delete", new { id = @boss.BossId }) |
+	    @Html.ActionLink("Delete", "Index", new { id = @boss.BossId, name = @boss.Name })
 	    @using (Html.BeginForm("ToggleThreat", "Boss", new { id = @boss.BossId }))
 	    {
             <input type="submit" value="change threat"/>
@@ -26,12 +27,15 @@ ima boss splash
 <p>
     @Html.ActionLink("Return to boss splash", "Index", "Home")
 </p>
-<!--come back to this when life isn't so dark-->
-<!--<div class="modal ">
-    <h2>Have you truly vanquished this enemy?</h2>
-	@using (Html.BeginForm("Delete", "Boss", new { id = }))
-	{
-	    <input type="submit"
-	}
-</div>
--->
+
+@if (ViewBag.ModalId != null)
+{
+    <div class="modal">
+        <h1>Has @ViewBag.ModalName truly been vanquished?</h1>
+	    @using (Html.BeginForm("Delete", "Boss", new { id = ViewBag.ModalId}))
+        {
+            <input type="submit" value="Ayyye!"/>
+        }
+
+    </div>
+}
