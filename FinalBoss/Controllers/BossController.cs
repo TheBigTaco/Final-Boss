@@ -8,6 +8,7 @@ using FinalBoss.Models;
 using FinalBoss.ViewModels;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalBoss.Controllers
 {
@@ -47,8 +48,6 @@ namespace FinalBoss.Controllers
         [HttpPost]
         public IActionResult Create(Boss boss, IFormFile image)
         {
-            Debug.WriteLine("***********************" + boss.HeroId);       
-
             byte[] newImage = new byte[0];
             if(image != null) 
             {
@@ -72,7 +71,7 @@ namespace FinalBoss.Controllers
 
         public IActionResult Details(int id)
         {
-            Boss thisBoss = bossRepo.Bosses.FirstOrDefault(x => x.BossId == id);
+            Boss thisBoss = bossRepo.Bosses.Include(boss => boss.Hero).FirstOrDefault(x => x.BossId == id);
             return View(thisBoss);
         }
 

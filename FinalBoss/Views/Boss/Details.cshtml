@@ -1,0 +1,35 @@
+﻿@model FinalBoss.Models.Boss
+
+@{    ViewData["Title"] = "Boss Details";
+    Layout = "_Layout";
+}
+
+<h1>@Model.Name</h1>
+@if(Model.Picture != null)
+{
+    <p>
+        <img src='@Url.Action("GetPicture", "Boss", new { id = Model.BossId})'/>
+    </p>
+}
+else
+{
+    <p>
+	   no pics. imagination works best.
+    </p>
+}
+    <p>
+	    Species: @Model.Species
+	</p>
+    <p>
+        Sex: @Model.Sex
+    </p>
+    <p>
+        Location: @Model.Location
+    </p>
+     <p>
+        Is an Immediate Threat: @Model.ImmediateThreat
+    </p>
+    <p>
+        Fought by: @Html.DisplayFor(model=> model.Hero.Name)
+    </p>
+    @Html.ActionLink("Return to boss list", "Index")

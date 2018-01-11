@@ -11,12 +11,14 @@ ima boss splash
 @foreach(var boss in Model)
 {
     <p>
-	    <strong>@boss.Name</strong> | 
+	    <strong>@boss.Name</strong> (is threat: @boss.ImmediateThreat) | 
 	    @Html.ActionLink("Details", "Details", new { id = @boss.BossId }) |
 	    @Html.ActionLink("Edit", "Edit", new { id = @boss.BossId }) |
 	    @Html.ActionLink("Delete", "Delete", new { id = @boss.BossId }) |
-	    @Html.ActionLink("Change Threat", "ToggleThreat", new { id = @boss.BossId })
-	    
+	    @using (Html.BeginForm("ToggleThreat", "Boss", new { id = @boss.BossId }))
+	    {
+            <input type="submit" value="change threat"/>
+        }    
     </p>
 
 }
