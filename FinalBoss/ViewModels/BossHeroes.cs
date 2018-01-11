@@ -17,7 +17,8 @@ namespace FinalBoss.ViewModels
         
         public BossHeroes()
         {
-            Boss = new Boss();
+            // not sure if necessary
+            //Boss = new Boss();
             Heroes = new SelectList(heroRepo.Heroes, "HeroId", "Name");
    
         }

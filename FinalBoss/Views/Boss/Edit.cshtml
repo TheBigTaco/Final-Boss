@@ -30,6 +30,10 @@
         @Html.LabelFor(model => model.Boss.Location)
         @Html.EditorFor(model => model.Boss.Location)
     </p>
+
+    <p>
+        @Html.HiddenFor(model => model.Boss.Picture)
+    </p>
     <p>
 	    @Html.LabelFor(model => model.Heroes)
         @Html.DropDownListFor(model => model.Boss.HeroId, Model.Heroes)

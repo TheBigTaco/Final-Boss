@@ -14,6 +14,7 @@ ima boss splash
 	    <strong>@boss.Name</strong> (is threat: @boss.ImmediateThreat) | 
 	    @Html.ActionLink("Details", "Details", new { id = @boss.BossId }) |
 	    @Html.ActionLink("Edit", "Edit", new { id = @boss.BossId }) |
+	    <p class="delete-modal">Delete</p>
 	    @Html.ActionLink("Delete", "Delete", new { id = @boss.BossId }) |
 	    @using (Html.BeginForm("ToggleThreat", "Boss", new { id = @boss.BossId }))
 	    {
@@ -25,3 +26,12 @@ ima boss splash
 <p>
     @Html.ActionLink("Return to boss splash", "Index", "Home")
 </p>
+<!--come back to this when life isn't so dark-->
+<!--<div class="modal ">
+    <h2>Have you truly vanquished this enemy?</h2>
+	@using (Html.BeginForm("Delete", "Boss", new { id = }))
+	{
+	    <input type="submit"
+	}
+</div>
+-->
